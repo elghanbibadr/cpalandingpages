@@ -258,7 +258,7 @@ fetch('https://api64.ipify.org?format=json')
  function updateImagesByCountry() {
     const slideImages = carouselInner.querySelectorAll('img');
     slideImages.forEach((image, index) => {
-      if (country.toLowerCase() === 'india') {
+      if (country.toLowerCase() === 'united states') {
         // Update image source for India
         image.src = `/india${index + 1}.jpg`;
       } else {
