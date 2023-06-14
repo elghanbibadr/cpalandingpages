@@ -53,6 +53,7 @@
       padding: 10px ;
       font-weight: bold;
       font-size: 1rem;
+      /* cursor: not-allowed; */
       /* font-weight: ; */
     /* border: 0;
     border-radius: 4px;
@@ -62,6 +63,9 @@
     font-size:1rem;
     cursor: pointer;
     /* font-weight: bold; */ 
+    }
+    .downloadBtn2{
+      cursor:not-allowed;
     }
 </style>
 
@@ -82,9 +86,10 @@
     </div>
 </div>
 
-<div class="carousel-button">
-    <button class="disabledBtn" id="downloadButton" disabled>Download Now</button>
-</div>
+
+  <button class="test">clicked</button>
+    <button class="downloadBtn2"  >Download Now</button>
+
 
 <div class="pagination">
     <button class="prevButton" disabled>&lt;</button>
@@ -95,7 +100,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         let carouselInner = document.querySelector('.carousel-inner');
         let carouselSlides = document.querySelectorAll('.carousel-slide');
-        let downloadButton = document.getElementById('downloadButton');
+        let downloadButton = document.querySelector('.downloadBtn2');
         let prevButton = document.querySelector('.prevButton');
         let nextButton = document.querySelector('.nextButton');
         let slideCount = carouselSlides.length;
@@ -110,7 +115,7 @@
           }
             prevButton.disabled = currentSlide === 0;
             nextButton.disabled = currentSlide === slideCount - 1;
-            downloadButton.disabled = !userSeenAllTheSlides;
+            // downloadButton.disabled = !userSeenAllTheSlides;
         }
 
         function showSlide(slideIndex) {
@@ -135,5 +140,12 @@
         nextButton.addEventListener('click', showNextSlide);
 
         updateButtons();
-    });
+
+        document.querySelector('.downloadBtn2').addEventListener('click', () =>{
+          if (!userSeenAllTheSlides){
+            alert("please see all the images to download");
+          }else console.log("all images seen")
+        } )
+      });
+      
 </script>
