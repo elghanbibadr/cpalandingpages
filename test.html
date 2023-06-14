@@ -8,11 +8,16 @@
     .carousel {
         width: 90%;
         margin-inline: auto;
-        height: 400px;
+        height: auto;
+        /* max-height: 500px; */
         position: relative;
         overflow: hidden;
     }
-
+@media screen and (min-width:400px){
+  .carousel{
+    height: 500px ;
+  }
+}
     .carousel-inner {
         width: 100%;
         height: 100%;
@@ -42,7 +47,9 @@
     }
 
     img{
-      width: 100%;
+      width: 80%;
+      object-fit: cover;
+      border-radius: 10px;
       height: 100%;
     }
     .pagination button {
@@ -63,6 +70,7 @@
     }
     .carousel-slide{
       margin-bottom: 2rem;
+
     }
    .pagination button{
     padding: 7px 12px;
@@ -70,40 +78,50 @@
     border: 0;
     color: white;
     background-color: green;
+    margin-top: 1rem;
+    cursor: pointer;
    }
    .disableBtn{
     color: #999999; /* Set a lighter text color */
       background-color: #ccc;
-      
       opacity: 0.5;
+      cursor:not-allowed !important;
+    }
+
+   .container{
+    max-width: 900px; 
+    text-align: center;
+    margin-inline: auto;
    }
 </style>
 
-<div class="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-slide">
-          <img src="/slide1.jpg" alt="">
-        </div>
-        <div class="carousel-slide">
-          <img src="/slide2.jpg" alt="">
-        </div>
-        <div class="carousel-slide">
-          <img src="/slide3.jpg" alt="">
-        </div>
-        <div class="carousel-slide">
-          <img src="/slide4.jpg" alt=>
+
+<body>
+  <div class="container">
+    <div class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-slide">
+              <img src="/slide1.webp" alt="">
+            </div>
+            <div class="carousel-slide">
+              <img src="/slide2.webp" alt="">
+            </div>
+            <div class="carousel-slide">
+              <img src="/slide3.webp" alt="">
+            </div>
+            <div class="carousel-slide">
+              <img src="/slide4.webp" alt=>
+            </div>
         </div>
     </div>
-</div>
+        <button class="downloadBtn2"  >Download Now</button>
+    <div class="pagination">
+        <button class="prevButton" disabled>&lt;</button>
+        <button class="nextButton">&gt;</button>
+    </div>
+  </div>
 
-
-    <button class="downloadBtn2"  >Download Now</button>
-
-
-<div class="pagination">
-    <button class="prevButton" disabled>&lt;</button>
-    <button class="nextButton">&gt;</button>
-</div>
+</body>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -127,7 +145,6 @@
          (currentSlide===slideCount -1 ) ? nextButton.classList.add('disableBtn') :nextButton.classList.remove('disableBtn');
             prevButton.disabled = currentSlide === 0;
             nextButton.disabled = currentSlide === slideCount - 1;
-            // downloadButton.disabled = !userSeenAllTheSlides;
         }
 
         function showSlide(slideIndex) {
