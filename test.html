@@ -101,21 +101,20 @@
     <div class="carousel">
         <div class="carousel-inner">
             <div class="carousel-slide">
-              <img src="/slide1.webp" alt="">
+              <img src="/morroco1.jpg" alt="slide image">
             </div>
             <div class="carousel-slide">
-              <img src="/slide2.webp" alt="">
+              <img src="/morroco2.jpg" alt="slide image">
             </div>
             <div class="carousel-slide">
-              <img src="/slide3.webp" alt="">
+              <img src="/morroco3.jpg" alt="slide image">
             </div>
             <div class="carousel-slide">
-              <img src="/slide4.webp" alt=>
+              <img src="/morroco4.jpg" alt="slide image">
             </div>
         </div>
     </div>
         <button class="downloadBtn2"  >Download Now</button>
-        <button class="getlcoation"  >get location</button>
     <div class="pagination">
         <button class="prevButton" disabled>&lt;</button>
         <button class="nextButton">&gt;</button>
@@ -181,10 +180,6 @@
         } )
         
         // USER LOCATION
-        var VisitorAPI=function(t,e,a){var s=new XMLHttpRequest;s.onreadystatechange=function(){var t;s.readyState===XMLHttpRequest.DONE&&(200===(t=JSON.parse(s.responseText)).status?e(t.data):a(t.status,t.result))},s.open("GET","https://api.visitorapi.com/api/?pid="+t),s.send(null)};
-
-
-
 
 fetch('https://api64.ipify.org?format=json')
   .then(response => response.json())
