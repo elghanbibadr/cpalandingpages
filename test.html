@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
   <style>
     .carousel {
-        width: 400px;
-        height: 300px;
+        width: 90%;
+        margin-inline: auto;
+        height: 400px;
         position: relative;
         overflow: hidden;
     }
@@ -21,6 +23,8 @@
     .carousel-slide {
         flex: 0 0 100%;
         display: flex;
+        background-color: red;
+        width: 100vw;
         justify-content: center;
         align-items: center;
         font-size: 24px;
@@ -38,22 +42,48 @@
         margin-top: 10px;
     }
 
+    img{
+      width: 100%;
+      height: 100%;
+    }
     .pagination button {
         margin: 0 5px;
+    }
+    .disabledBtn{
+      padding: 10px ;
+      font-weight: bold;
+      font-size: 1rem;
+      /* font-weight: ; */
+    /* border: 0;
+    border-radius: 4px;
+     background-color:#cccccc8d;
+    color:black;
+    margin-top: 4rem;
+    font-size:1rem;
+    cursor: pointer;
+    /* font-weight: bold; */ 
     }
 </style>
 
 <div class="carousel">
     <div class="carousel-inner">
-        <div class="carousel-slide">Slide 1</div>
-        <div class="carousel-slide">Slide 2</div>
-        <div class="carousel-slide">Slide 3</div>
-        <div class="carousel-slide">Slide 4</div>
+        <div class="carousel-slide">
+          <img src="/slide1.jpg" alt="">
+        </div>
+        <div class="carousel-slide">
+          <img src="/slide2.jpg" alt="">
+        </div>
+        <div class="carousel-slide">
+          <img src="/slide3.jpg" alt="">
+        </div>
+        <div class="carousel-slide">
+          <img src="/slide4.jpg" alt="">
+        </div>
     </div>
 </div>
 
 <div class="carousel-button">
-    <button id="downloadButton" disabled>Download Now</button>
+    <button class="disabledBtn" id="downloadButton" disabled>Download Now</button>
 </div>
 
 <div class="pagination">
@@ -75,6 +105,7 @@
         function updateButtons() {
           if( slideCount -1 ===currentSlide ){
             userSeenAllTheSlides=true;
+            downloadButton.classList.add('download-nowBtn')
             console.log("seen all slides")
           }
             prevButton.disabled = currentSlide === 0;
