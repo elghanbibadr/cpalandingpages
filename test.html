@@ -4,120 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-      .slider {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
+    .carousel {
+        width: 400px;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
     }
 
-    .slider img {
-      display: none;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateX(100%);
-      transition: transform 0.5s ease-in-out;
+    .carousel-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 0.5s ease-in-out;
     }
 
-    .slider img.active {
-      display: block;
-      transform: translateX(0%);
+    .carousel-slide {
+        flex: 0 0 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+    }
+
+    .carousel-button {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
     }
 
     .pagination {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
     }
+
     .pagination button {
-      background-color: transparent;
-      border: 1px solid #333;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin: 0 5px;
-      padding: 0;
-      cursor: pointer;
+        margin: 0 5px;
     }
+</style>
 
-    .pagination button.active {
-      background-color: #333;
-    }
-  </style>
-  <title>Document</title>
-</head>
-<body>
-  <p>To Download the App Please Complete the Steps Below:</p>
-  <div class="slider">
-    <img src="/slide1.jpg" alt="" class="active">
-    <img src="/slide2.jpg" alt="">
-    <img src="/slide3.jpg" alt="">
-    <img src="/slide4.jpg" alt="">
-  </div>
-  <div class="pagination"></div>
-  <button id="downloadBtn" class="download-nowBtn" disabled>Download Now</button>
+<div class="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-slide">Slide 1</div>
+        <div class="carousel-slide">Slide 2</div>
+        <div class="carousel-slide">Slide 3</div>
+        <div class="carousel-slide">Slide 4</div>
+    </div>
+</div>
 
+<div class="carousel-button">
+    <button id="downloadButton" disabled>Download Now</button>
+</div>
 
+<div class="pagination">
+    <button class="prevButton" disabled>&lt;</button>
+    <button class="nextButton">&gt;</button>
+</div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let carouselInner = document.querySelector('.carousel-inner');
+        let carouselSlides = document.querySelectorAll('.carousel-slide');
+        let downloadButton = document.getElementById('downloadButton');
+        let prevButton = document.querySelector('.prevButton');
+        let nextButton = document.querySelector('.nextButton');
+        let slideCount = carouselSlides.length;
+        let userSeenAllTheSlides = false;
+        let currentSlide = 0;
 
-  <script type="module">
-    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.esm.browser.min.js'
-  
-    // const swiper = new Swiper(...);
-    console.log(Swiper)
-  </script>
-  <!-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      let images = document.querySelectorAll('.slider img');
-      let pagination = document.querySelector('.pagination');
-      let downloadBtn = document.getElementById('downloadBtn');
-      let currentIndex = 0;
-      let userSeenAllTheSlides=false;
-
-      function showImage(index) {
-        console.log(currentIndex,images.length)
-        if (currentIndex === images.length - 2) {
-         userSeenAllTheSlides=true
-        downloadBtn.disabled = false;
-      }
-
-        images[currentIndex].classList.remove('active');
-        images[index].classList.add('active');
-        currentIndex = index;
-        updatePagination();
-      }
-
-      function updatePagination() {
-        let buttons = pagination.querySelectorAll('button');
-        buttons.forEach(function (button, index) {
-          if (index === currentIndex) {
-            button.classList.add('active');
-          } else {
-            button.classList.remove('active');
+        function updateButtons() {
+          if( slideCount -1 ===currentSlide ){
+            userSeenAllTheSlides=true;
+            console.log("seen all slides")
           }
-        });
-      }
+            prevButton.disabled = currentSlide === 0;
+            nextButton.disabled = currentSlide === slideCount - 1;
+            downloadButton.disabled = !userSeenAllTheSlides;
+        }
 
-      function createPaginationButtons() {
-        images.forEach(function (_, index) {
-          let button = document.createElement('button');
-          button.addEventListener('click', function () {
-            showImage(index);
-          });
-          pagination.appendChild(button);
-        });
-      }
+        function showSlide(slideIndex) {
+            currentSlide = slideIndex;
+            carouselInner.style.transform = 'translateX(' + (currentSlide * -100) + '%)';
+            updateButtons();
+        }
 
-      createPaginationButtons();
-      updatePagination();
+        function showNextSlide() {
+            if (currentSlide < slideCount - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
 
-   
-      // Stop the slideshow when the user interacts with the slider
-    //   document.querySelector('.slider').addEventListener('click', function () {
-    //     clearInterval(interval);
-    //   });
+        function showPreviousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        prevButton.addEventListener('click', showPreviousSlide);
+        nextButton.addEventListener('click', showNextSlide);
+
+        updateButtons();
     });
-  </script> -->
-</body>
-</html>
+</script>
