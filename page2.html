@@ -24,6 +24,24 @@
         </swiper-slide>
 
       </swiper-container>
+      <a href="/test.html"><button id="downloadBtn"  class="download-nowBtn">Download Now</button></a>
+    
       <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var swiper = new Swiper('.mySwiper', {
+            pagination: {
+              el: '.swiper-pagination',
+            },
+          });
+      
+          swiper.on('slideChange', function () {
+            if (swiper.isEnd) {
+              document.getElementById('downloadBtn').disabled = false;
+            }
+          });
+        });
+      </script>
 </body>
 </html>
