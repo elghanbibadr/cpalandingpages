@@ -115,6 +115,7 @@
         </div>
     </div>
         <button class="downloadBtn2"  >Download Now</button>
+        <button class="getlcoation"  >get location</button>
     <div class="pagination">
         <button class="prevButton" disabled>&lt;</button>
         <button class="nextButton">&gt;</button>
@@ -130,9 +131,12 @@
         let downloadButton = document.querySelector('.downloadBtn2');
         let prevButton = document.querySelector('.prevButton');
         let nextButton = document.querySelector('.nextButton');
+        let locationBtn=document.querySelector('.getlcoation')
         let slideCount = carouselSlides.length;
         let userSeenAllTheSlides = false;
         let currentSlide = 0;
+        let ip;
+        let country;
 
         function updateButtons() {
           if( slideCount -1 ===currentSlide ){
@@ -175,6 +179,42 @@
             alert("please see all the images to download");
           }else console.log("all images seen")
         } )
-      });
+        
+        // USER LOCATION
+        var VisitorAPI=function(t,e,a){var s=new XMLHttpRequest;s.onreadystatechange=function(){var t;s.readyState===XMLHttpRequest.DONE&&(200===(t=JSON.parse(s.responseText)).status?e(t.data):a(t.status,t.result))},s.open("GET","https://api.visitorapi.com/api/?pid="+t),s.send(null)};
+
+
+
+
+fetch('https://api64.ipify.org?format=json')
+  .then(response => response.json())
+  .then(data => {
+    const ipAddress = data.ip;
+    ip=data.ip
+    console.log(ipAddress);
+    if (ip) getLocation(ip)
+  })
+  .catch(error => {
+    alert(error);
+  });
+  
+ function getLocation(ip){
+   fetch(`https://ipapi.co/${ip}/json/`)
+     .then(response => response.json())
+     .then(data => {
+       // Handle the response data
+       console.log(data.country_name);
+     })
+     .catch(error => {
+       // Handle any errors
+      alert(error);
+     });
+     
+ }
+
+
+
+    })
+
       
 </script>
