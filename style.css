@@ -1,0 +1,24 @@
+body{
+    background-color: black;
+}
+
+.page1-wrraper{
+    text-align: center;
+    margin-top: 6rem;
+}
+
+.greenshark-logo{
+    height: 160px;
+}
+
+.download-nowBtn{
+    padding: 15px 20px ;
+    border: 0;
+    border-radius: 4px;
+    background-color: #36d62eb6;
+    color:white;
+    margin-top: 4rem;
+    font-size:1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
