@@ -1,47 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
-    <title>Document</title>
-</head>
-<body>
-    <p>To Download the App Please Complete the Steps Below :</p>
-    <swiper-container class="mySwiper" pagination="true">
-        <swiper-slide>
-            <img src="/slide1.jpg" alt="">
-        </swiper-slide>
-        <swiper-slide>
-            <img src="/slide2.jpg" alt="">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .carousel {
+        width: 90%;
+        margin-inline: auto;
+        height: auto;
+        /* max-height: 500px; */
+        position: relative;
+        overflow: hidden;
+    }
+@media screen and (min-width:400px){
+  .carousel{
+    height: 500px ;
+  }
+}
+    .carousel-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
 
-        </swiper-slide>
-        <swiper-slide>
-            <img src="/slide3.jpg" alt="">
-        </swiper-slide>
-        <swiper-slide>
-            <img src="/slide4.jpg" alt="">
-        </swiper-slide>
+    .carousel-slide {
+        flex: 0 0 100%;
+        display: flex;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+    }
 
-      </swiper-container>
-      <a href="/test.html"><button id="downloadBtn"  class="download-nowBtn">Download Now</button></a>
-    
-      <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+    .carousel-button {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          var swiper = new Swiper('.mySwiper', {
-            pagination: {
-              el: '.swiper-pagination',
-            },
-          });
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    img{
+      width: 80%;
+      object-fit: cover;
+      border-radius: 10px;
+      height: 100%;
+    }
+    .pagination button {
+        margin: 0 5px;
+    }
+   
+    .downloadBtn2{
+      cursor:not-allowed;
+      padding: 10px ;
+      font-weight:500;
+      font-size: 1rem;
+      color: #999999; /* Set a lighter text color */
+      background-color: #ccc;
       
-          swiper.on('slideChange', function () {
-            if (swiper.isEnd) {
-              document.getElementById('downloadBtn').disabled = false;
-            }
-          });
-        });
-      </script>
+      opacity: 0.5;
+      border-radius: 4px;
+      border: 0;
+    }
+    .carousel-slide{
+      margin-bottom: 2rem;
+
+    }
+   .pagination button{
+    padding: 7px 12px;
+    border-radius: 4px;
+    border: 0;
+    color: white;
+    background-color: green;
+    margin-top: 1rem;
+    cursor: pointer;
+   }
+   .disableBtn{
+    color: #999999; /* Set a lighter text color */
+      background-color: #ccc;
+      opacity: 0.5;
+      cursor:not-allowed !important;
+    }
+
+   .container{
+    max-width: 900px; 
+    text-align: center;
+    margin-inline: auto;
+   }
+   .loading-spinner {
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #000;
+ margin-top: 3rem;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.hidden{
+  display: none;
+}
+</style>
+
+
+<body>
+  <div class="container">
+    <div class="loading-spinner"></div>
+    <div class="carouselWrraper hidden">
+      <div class="carousel ">
+          <div class="carousel-inner">
+              <div class="carousel-slide">
+                <img src="/india1.jpg" alt="slide image">
+              </div>
+              <div class="carousel-slide">
+                <img src="/india2.jpg" alt="slide image">
+              </div>
+              <div class="carousel-slide">
+                <img src="/india3.jpg" alt="slide image">
+              </div>
+              <div class="carousel-slide">
+                <img src="/india4.jpg" alt="slide image">
+              </div>
+          </div>
+      </div>
+          <button class="downloadBtn2"  >Download Now</button>
+      <div class="pagination">
+          <button class="prevButton" disabled>&lt;</button>
+          <button class="nextButton">&gt;</button>
+      </div>
+    </div>
+  </div>
+
 </body>
-</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        let carouselInner = document.querySelector('.carousel-inner');
+        let carouselWrraper = document.querySelector('.carouselWrraper');
+        let carouselSlides = document.querySelectorAll('.carousel-slide');
+        let downloadButton = document.querySelector('.downloadBtn2');
+        let prevButton = document.querySelector('.prevButton');
+        let nextButton = document.querySelector('.nextButton');
+        let locationBtn=document.querySelector('.getlcoation')
+        let slideCount = carouselSlides.length;
+        let userSeenAllTheSlides = false;
+        let currentSlide = 0;
+        let ip;
+        let country;
+
+        // loading
+        const loadingSpinner = document.querySelector('.loading-spinner');
+
+// ...
+
+function showLoadingSpinner() {
+  loadingSpinner.style.display = 'block';
+}
+
+function hideLoadingSpinner() {
+  loadingSpinner.style.display = 'none';
+    carouselWrraper.classList.remove('hidden')
+}
+  // 
+
+        function updateButtons() {
+          if( slideCount -1 ===currentSlide ){
+            userSeenAllTheSlides=true;
+            downloadButton.classList.remove('downloadBtn2')
+            downloadButton.classList.add('download-nowBtn')
+            console.log("seen all slides")
+          }
+         (currentSlide===0) ? prevButton.classList.add('disableBtn') :prevButton.classList.remove('disableBtn');
+         (currentSlide===slideCount -1 ) ? nextButton.classList.add('disableBtn') :nextButton.classList.remove('disableBtn');
+            prevButton.disabled = currentSlide === 0;
+            nextButton.disabled = currentSlide === slideCount - 1;
+        }
+
+        function showSlide(slideIndex) {
+            currentSlide = slideIndex;
+            carouselInner.style.transform = 'translateX(' + (currentSlide * -100) + '%)';
+            updateButtons();
+        }
+
+        function showNextSlide() {
+            if (currentSlide < slideCount - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function showPreviousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        prevButton.addEventListener('click', showPreviousSlide);
+        nextButton.addEventListener('click', showNextSlide);
+
+        updateButtons();
+
+        document.querySelector('.downloadBtn2').addEventListener('click', () =>{
+          if (!userSeenAllTheSlides){
+            alert("please see all the images to download");
+          }else console.log("all images seen")
+        } )
+        
+        // USER LOCATION
+
+fetch('https://api64.ipify.org?format=json')
+  .then(response => response.json())
+  .then(data => {
+    const ipAddress = data.ip;
+    ip=data.ip
+    console.log(ipAddress);
+    if (ip) getLocation(ip)
+  })
+  .catch(error => {
+    alert(error);
+  });
+  
+  function getLocation(ip){
+    showLoadingSpinner();
+    
+    fetch(`https://ipapi.co/${ip}/json/`)
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data
+      country=data.country_name
+      if (country){
+        updateImagesByCountry()
+      }
+    })
+    .catch(error => {
+       // Handle any errors
+      alert(error);
+     
+     }).finally(() => setTimeout( hideLoadingSpinner,1000) );
+     
+ }
+
+ function updateImagesByCountry() {
+    const slideImages = carouselInner.querySelectorAll('img');
+    slideImages.forEach((image, index) => {
+      if (country.toLowerCase() === 'india') {
+        // Update image source for India
+        image.src = `/india${index + 1}.jpg`;
+      } else {
+        // Update image source for Morocco
+        image.src = `/Morocco${index + 1}.jpg`;
+      }
+    });
+  }
+
+    })
+
+      
+</script>
