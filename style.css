@@ -14,15 +14,14 @@ body{
 }
 
 .download-nowBtn{
-    padding: 15px 20px ;
+    padding: 15px 20px  ;
     border: 0;
     border-radius: 4px;
-    background-color: #36d62eb6;
-    color:white;
-    /* margin-top: 4rem; */
-    font-size:1rem;
-    cursor: pointer;
-    font-weight: bold;
+    background-color: #36d62eb6 ;
+    color:white ;
+    font-size:1rem ;
+    cursor: pointer ;
+    font-weight: bold ;
 }
 
 
