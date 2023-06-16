@@ -76,8 +76,8 @@ height: 500px ;
 }
 
 img{
-  width: 80%;
-  object-fit: cover;
+  width: 100%;
+  object-fit:contain;
   border-radius: 10px;
   height: 100%;
 }

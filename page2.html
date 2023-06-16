@@ -18,16 +18,22 @@
       <div class="carousel ">
           <div class="carousel-inner">
               <div class="carousel-slide">
-                <img src="/india1.jpg" alt="slide image">
+                <img src=""  alt="slide image">
               </div>
               <div class="carousel-slide">
-                <img src="/india2.jpg" alt="slide image">
+                <img src='' alt="slide image">
               </div>
               <div class="carousel-slide">
-                <img src="/india3.jpg" alt="slide image">
+                <img  alt="slide image">
               </div>
               <div class="carousel-slide">
-                <img src="/india4.jpg" alt="slide image">
+                <img src="" alt="slide image">
+              </div>
+              <div class="carousel-slide">
+                <img src="" alt="slide image">
+              </div>
+              <div class="carousel-slide">
+                <img src="" alt="slide image">
               </div>
           </div>
       </div>
@@ -153,10 +159,10 @@ fetch('https://api64.ipify.org?format=json')
     slideImages.forEach((image, index) => {
       if (country.toLowerCase() === 'united states') {
         // Update image source for India
-        image.src = `/india${index + 1}.jpg`;
+        image.src = `india${index + 1}.webp`;
       } else {
         // Update image source for Morocco
-        image.src = `/Morocco${index + 1}.jpg`;
+        image.src = `/images/Morocco${index + 1}.webp`;
       }
     });
   }
