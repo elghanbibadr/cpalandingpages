@@ -158,8 +158,9 @@ fetch('https://api64.ipify.org?format=json')
     const slideImages = carouselInner.querySelectorAll('img');
     slideImages.forEach((image, index) => {
       if (country.toLowerCase() === 'united states') {
+        if (index === 4)return ;
         // Update image source for India
-        image.src = `india${index + 1}.webp`;
+        image.src = `/images/india${index + 1}.webp`;
       } else {
         // Update image source for Morocco
         image.src = `/images/Morocco${index + 1}.webp`;
