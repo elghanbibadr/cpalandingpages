@@ -162,14 +162,9 @@ fetch('https://api64.ipify.org?format=json')
         // Update image source for India
         image.src = `/images/india${index + 1}.webp`;
       } 
-      if (country.toLowerCase() === 'egypt') {
-        if (index === 4)return ;
-        // Update image source for India
-        image.src = `/images/Morocco${index + 1}.webp`;
-        
-      } else {
+     else {
         // Update image source for Morocco
-        image.src = `/images/egypt${index + 1}.webp`;
+        image.src = `/images/Morocco${index + 1}.webp`;
       }
     });
   }
